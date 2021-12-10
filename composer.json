@@ -1,0 +1,34 @@
+{
+  "name": "duanjw/fadada-sdk-goldentec",
+  "description": "description",
+  "minimum-stability": "stable",
+  "license": "BSD-3-Clause",
+  "authors": [
+    {
+      "name": "duanjw",
+      "email": "474280116@qq.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.2.0",
+    "yiisoft/yii2": "~2.0.22",
+    "ext-json": "*",
+    "ext-curl": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "duanjw\\fadada-sdk-goldentec\\": "src/"
+    }
+  },
+  "config": {
+    "github-protocols": [
+      "https"
+    ]
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://packagist.org"
+    }
+  ]
+}
