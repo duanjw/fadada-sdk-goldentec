@@ -1,5 +1,5 @@
 <?php
-namespace fadada_sdk_goldentec\extend;
+namespace duanjw\fadada_sdk_goldentec\extend;
 use Yii;
 
 class BaseLog

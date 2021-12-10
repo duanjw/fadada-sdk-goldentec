@@ -1,6 +1,6 @@
 <?php
 
-namespace fadada_sdk_goldentec\extend\models;
+namespace duanjw\fadada_sdk_goldentec\extend\models;
 
 use Yii;
 use yii\base\InvalidConfigException;

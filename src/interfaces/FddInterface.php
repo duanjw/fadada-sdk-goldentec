@@ -1,6 +1,6 @@
 <?php
 
-namespace fadada_sdk_goldentec\interfaces;
+namespace duanjw\fadada_sdk_goldentec\interfaces;
 
 /**
  * Interface FddInterface

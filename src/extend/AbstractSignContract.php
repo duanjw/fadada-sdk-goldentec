@@ -1,13 +1,13 @@
 <?php
 
-namespace fadada_sdk_goldentec\extend;
+namespace duanjw\fadada_sdk_goldentec\extend;
 
 use Exception;
-use fadada_sdk_goldentec\constant\BaseConstant;
-use fadada_sdk_goldentec\constant\ContractError;
-use fadada_sdk_goldentec\extend\models\ClientContract;
-use fadada_sdk_goldentec\extend\models\Client;
-use fadada_sdk_goldentec\extend\models\ClientContractTemplate;
+use duanjw\fadada_sdk_goldentec\constant\BaseConstant;
+use duanjw\fadada_sdk_goldentec\constant\ContractError;
+use duanjw\fadada_sdk_goldentec\extend\models\ClientContract;
+use duanjw\fadada_sdk_goldentec\extend\models\Client;
+use duanjw\fadada_sdk_goldentec\extend\models\ClientContractTemplate;
 use yii\base\Model;
 use Yii;
 
