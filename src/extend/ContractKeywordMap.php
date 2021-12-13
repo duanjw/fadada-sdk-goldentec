@@ -4,10 +4,10 @@
  * Date: 2020/8/21
  */
 
-namespace duanjw\fadada_sdk_goldentec\extend;
+namespace duanjw\fadada\extend;
 
-use duanjw\fadada_sdk_goldentec\extend\models\ClientContractAddress;
-use duanjw\fadada_sdk_goldentec\extend\models\Client;
+use duanjw\fadada\extend\models\ClientContractAddress;
+use duanjw\fadada\extend\models\Client;
 
 class ContractKeywordMap
 {

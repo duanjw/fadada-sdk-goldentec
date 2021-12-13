@@ -6,7 +6,7 @@
  * Time: 11:43
  */
 
-namespace duanjw\fadada_sdk_goldentec;
+namespace duanjw\fadada;
 
 /**
  * @method accountRegister(...$string): array 用户或企业 获取客户编码

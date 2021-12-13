@@ -1,10 +1,10 @@
 <?php
 
 
-namespace duanjw\fadada_sdk_goldentec\extend;
+namespace duanjw\fadada\extend;
 
-use duanjw\fadada_sdk_goldentec\api\FddApi;
-use duanjw\fadada_sdk_goldentec\extend\models\Areas;
+use duanjw\fadada\api\FddApi;
+use duanjw\fadada\extend\models\Areas;
 use Yii;
 
 class ClientUtils

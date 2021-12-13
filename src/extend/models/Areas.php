@@ -1,6 +1,6 @@
 <?php
 
-namespace duanjw\fadada_sdk_goldentec\extend\models;
+namespace duanjw\fadada\extend\models;
 
 use Yii;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace duanjw\fadada_sdk_goldentec\constant;
+namespace duanjw\fadada\constant;
 
 final class BaseConstant
 {

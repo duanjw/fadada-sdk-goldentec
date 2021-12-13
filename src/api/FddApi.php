@@ -1,16 +1,16 @@
 <?php
 
 
-namespace duanjw\fadada_sdk_goldentec\api;
+namespace duanjw\fadada\api;
 
 
 use Exception;
-use duanjw\fadada_sdk_goldentec\constant\BaseConstant;
-use duanjw\fadada_sdk_goldentec\constant\ContractError;
-use duanjw\fadada_sdk_goldentec\extend\BaseLog;
-use duanjw\fadada_sdk_goldentec\extend\Client;
-use duanjw\fadada_sdk_goldentec\extend\ClientUtils;
-use duanjw\fadada_sdk_goldentec\interfaces\FddInterface;
+use duanjw\fadada\constant\BaseConstant;
+use duanjw\fadada\constant\ContractError;
+use duanjw\fadada\extend\BaseLog;
+use duanjw\fadada\extend\Client;
+use duanjw\fadada\extend\ClientUtils;
+use duanjw\fadada\interfaces\FddInterface;
 
 
 class FddApi implements FddInterface

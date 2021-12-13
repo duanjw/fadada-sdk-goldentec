@@ -17,7 +17,7 @@
   },
   "autoload": {
     "psr-4": {
-      "duanjw\\fadada-sdk-goldentec\\": "src/"
+      "duanjw\\fadada\\": "src/"
     }
   },
   "config": {
