@@ -62,10 +62,6 @@ abstract class AbstractSignContract extends Model
 
     public abstract function publishSyncContract(array $params);
 
-    public abstract function getOrgId();
-
-    public abstract function syncOrder(string $syncOrder);
-
     /**
      * 抛异常
      * @param array $key
@@ -269,13 +265,12 @@ abstract class AbstractSignContract extends Model
         if (!empty($params['region_code'])) {
             $data = [
                 'client_id' => $client->id,
-                'org_id' => $this->getOrgId(),
                 'region_code' => $params['region_code'],
                 'address' => $params['register_address']
             ];
             try {
                 $data['type'] = 1;
-                $this->syncGoldenCloud(['business_id'=>$clientContract->id, 'client_id'=>$data['client_id'], 'org_id'=>$data['org_id'],
+                $this->syncGoldenCloud(['business_id'=>1001, 'client_id'=>$data['client_id'],
                     'region_code'=>$data['region_code'], 'address'=>$data['address'], 'register_region_code'=> $data['region_code'],
                     'register_address'=>$data['address']]);
             } catch (\Exception $e) {
@@ -522,14 +517,7 @@ abstract class AbstractSignContract extends Model
         if (!$clientContract->save()) {
             return ['code' => 1, 'msg' => '更新合同失败'];
         }
-
-        if(!empty($clientContract->shop_order_sn)){
-            //同步订单数据
-            $this->syncOrder($clientContract->shop_order_sn);
-        }
-
         return ['code' => 0, 'msg' => ''];
-
     }
 
 }
