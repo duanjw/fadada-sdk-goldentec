@@ -29,6 +29,11 @@ final class BaseConstant
      */
     public const SUCCESS_CODE = 0;
 
+    public const CALLBACK_SUCCESS_CODE = 0;
+    public const CALLBACK_ERROR = 5;
+    public const CALLBACK_VALIDATE_SIGN_FAIL = 3;
+
+
     /**
      * 个人
      */

@@ -30,6 +30,7 @@ use yii\db\Connection;
  * @property int $updated_at 更新时间
  * @property string $shop_order_sn 订单号
  * @property int $contract_template_id 关联合同模板id
+ * @property int source 合同来源
  */
 class ClientContract extends \yii\db\ActiveRecord
 {
@@ -48,6 +49,10 @@ class ClientContract extends \yii\db\ActiveRecord
 
     CONST TYPE_MATERIAL_ELEC = 1;
     CONST TYPE_MATERIAL_PAPER = 2;
+
+    // 合同来源
+    const SOURCE_YUM = 0; //云票儿商家版
+    const SOURCE_MANAGER_PLATFORM = 0; // 管理后台
 
     public function behaviors()
     {

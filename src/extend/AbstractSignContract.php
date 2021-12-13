@@ -2,6 +2,7 @@
 
 namespace duanjw\fadada\extend;
 
+
 use Exception;
 use duanjw\fadada\constant\BaseConstant;
 use duanjw\fadada\constant\ContractError;
@@ -62,6 +63,8 @@ abstract class AbstractSignContract extends Model
     public abstract function publishSyncContract(array $params);
 
     public abstract function getOrgId();
+
+    public abstract function syncOrder(string $syncOrder);
 
     /**
      * 抛异常
@@ -161,7 +164,6 @@ abstract class AbstractSignContract extends Model
     {
 
         $client = Client::findOne($clientId);
-        var_dump($client);exit;
 
         #1.商户法大大注册
         $this->accountRegister($client);
@@ -307,6 +309,22 @@ abstract class AbstractSignContract extends Model
     public function getOrderContract(string $template_id, string $client_id, string $order_sn, int $beginTime = 0, int $endTime = 0, bool $saveRecord = true): array
     {
         return $this->getContract($client_id, "", $template_id, $order_sn, $beginTime, $endTime, ClientContract::TYPE_BUY, $saveRecord);
+    }
+
+    public function callback($params, int $source = ClientContract::SOURCE_YUM): array
+    {
+        // 校验签名，解析参数
+        $requestParams = $this->fddApi->rollbackHandle($params);
+        if (!isset($requestParams["code"]) || $requestParams["code"] !=  0 || !isset($requestParams["data"])) {
+            BaseLog::info([$requestParams['msg'], 'param' => $params]);
+            return ['code' => BaseConstant::CALLBACK_VALIDATE_SIGN_FAIL, 'msg' => $requestParams['msg']];
+        }
+        $ret = $this->refine($requestParams, $source); #进行对应数据表的修改
+        if ($ret['code'] != 0) {
+            BaseLog::info(["法大大回调后修改数据不成功失败" => $ret['msg']->getErrors(), 'param' => $requestParams]);
+            return ['code' => BaseConstant::CALLBACK_ERROR, 'msg' => $ret['msg']];
+        }
+        return ['code' => BaseConstant::CALLBACK_SUCCESS_CODE, 'msg' => '成功'];
     }
 
     /**
@@ -477,6 +495,41 @@ abstract class AbstractSignContract extends Model
         }
         //合同关键字替换
         return ContractKeywordMap::getContractKeywordMap($paramMap,$client_id);
+    }
+
+    /**
+     * 进行对应数据表的修改
+     * @return array
+     */
+    public function refine(array $requestParams, int $source): array
+    {
+        #合同表，更新对应的数据
+        $clientContract = ClientContract::findOne(['contract_id' => $requestParams['data']['docNo']]);
+        $clientContract->contract_status = $requestParams['data']['resultCode'] == 1 ? ClientContract::STATUS_OK : ClientContract::STATUS_NO;
+        $clientContract->transaction_id = $requestParams['data']['transactionNo'] ?? '';
+        $clientContract->contract_id = $requestParams['data']['docNo'] ?? '';
+        $clientContract->download_url = $requestParams['data']['downloadUrl'] ?? '';
+        $clientContract->viewpdf_url = $requestParams['data']['viewUrl'] ?? '';
+        $clientContract->result_desc = $requestParams['data']['resultMsg'] ?? '';
+        $clientContract->updated_at = strtotime($requestParams['data']['timestamp']) ? : time();
+        $clientContract->source = $source;
+        // 订单合同的时间在一填充的时候就根据订单写进去了
+        if ($clientContract->contract_type != ClientContract::TYPE_BUY) {
+            $clientContract->contract_begin_time = time();
+            $clientContract->contract_end_time = time() + 3600 * 24 * 365 - 1;
+        }
+
+        if (!$clientContract->save()) {
+            return ['code' => 1, 'msg' => '更新合同失败'];
+        }
+
+        if(!empty($clientContract->shop_order_sn)){
+            //同步订单数据
+            $this->syncOrder($clientContract->shop_order_sn);
+        }
+
+        return ['code' => 0, 'msg' => ''];
+
     }
 
 }
